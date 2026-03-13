@@ -13,13 +13,13 @@
         android:theme="@style/Theme.Notes_shashin"
         tools:targetApi="31">
         <activity
-            android:name=".NoteActivity"
+            android:name=".presentations.NoteActivity"
             android:exported="false" />
         <activity
-            android:name=".NotesActivity"
+            android:name=".presentations.NotesActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".presentations.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
