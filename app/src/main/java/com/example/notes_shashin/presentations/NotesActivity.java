@@ -16,6 +16,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.notes_shashin.R;
+import com.example.notes_shashin.datas.DbContext;
+import com.example.notes_shashin.datas.NotesContext;
 import com.example.notes_shashin.datas.RepoNotes;
 import com.example.notes_shashin.domains.models.Note;
 
@@ -26,6 +28,7 @@ public class NotesActivity extends AppCompatActivity {
     GridLayout ItemsParent;
     View bthAddNotes;
     EditText etSearch;
+    DbContext dbContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,13 +44,14 @@ public class NotesActivity extends AppCompatActivity {
         });
 
         etSearch.setOnKeyListener(SearchListener);
-        LoadNotes(RepoNotes.Notes);
+        dbContext = new DbContext(this);
+        LoadNotes(NotesContext.AllNotes());
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        LoadNotes(RepoNotes.Notes);
+        LoadNotes(NotesContext.AllNotes());
     }
 
     public void LoadNotes(ArrayList<Note> notes) {
@@ -80,7 +84,7 @@ public class NotesActivity extends AppCompatActivity {
         public boolean onKey(View v, int keyCode, KeyEvent event) {
             String Search = etSearch.getText().toString();
 
-            ArrayList<Note> FindNotes = RepoNotes.Notes.stream().filter(
+            ArrayList<Note> FindNotes = NotesContext.AllNotes().stream().filter(
                     item -> item.text.contains(Search)
             ).collect(Collectors.toCollection(ArrayList::new));
 
